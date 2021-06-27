@@ -4,9 +4,6 @@ resource "aws_lambda_function" "tika_lambda" {
   package_type  = "Image"
   function_name = "tika_lambda"
   role          = aws_iam_role.bug_h20_lambda.arn
-  image_config {
-    command = ["src.handler.lambda_handler"]
-  }
   timeout     = 300
   memory_size = 256
 
