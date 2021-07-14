@@ -5,7 +5,8 @@
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.935.0",
-    "bunyan": "^1.8.15"
+    "bunyan": "^1.8.15",
+    "tika-text-extract": "^2.4.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
