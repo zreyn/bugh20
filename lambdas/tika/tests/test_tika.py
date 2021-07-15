@@ -43,7 +43,7 @@ def pdf_stream():
         (
             valid_event,
             lambda_context,
-            None,
+            "Done",
         ),
     ],
 )
@@ -118,14 +118,12 @@ def test_handler_cant_read_pdf_from_s3(
         ),
     ],
 )
-def test_handler_cant_read_pdf(
-    event, context, expected_response, s3_client_stub
-):
+def test_handler_cant_read_pdf(event, context, expected_response, s3_client_stub):
 
     s3_client_stub.add_response(
         "get_object",
         {
-            "Body": StreamingBody(io.BytesIO(),0),
+            "Body": StreamingBody(io.BytesIO(), 0),
         },
         {
             "Bucket": "bug-h20-data",
