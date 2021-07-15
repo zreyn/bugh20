@@ -2,6 +2,7 @@ import os
 import boto3
 from aws_lambda_powertools import Logger
 import pdfplumber
+import io
 
 logger = Logger(service="tika", level="INFO")
 
@@ -20,5 +21,18 @@ def lambda_handler(event, context):
         return
 
     logger.info(f"Getting {pdf_key} from S3...")
-    pdf_file = s3_client.get_object(Key=pdf_key, Bucket=s3_bucket_name)["Body"].read()
-    logger.info(f"Got file")
+    try:
+        pdf_file = io.BytesIO(
+            s3_client.get_object(Key=pdf_key, Bucket=s3_bucket_name)["Body"].read()
+        )
+    except Exception as e:
+        logger.info(f"Error getting file: {e}")
+        return
+
+    logger.info(f"Opening with pdfplumber...")
+    try:
+        with pdfplumber.open(pdf_file) as pdf:
+            logger.info(f"I see {len(pdf.pages)} pages")
+    except Exception as e:
+        logger.info(f"Error extracting text from file: {e}")
+        return

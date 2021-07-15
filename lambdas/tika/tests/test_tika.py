@@ -79,3 +79,59 @@ def test_handler_valid_event(
 def test_handler_missing_pdf_key(event, context, expected_response):
     result = handler.lambda_handler(event, context)
     assert result == expected_response
+
+
+@pytest.mark.parametrize(
+    "event,context,expected_response",
+    [
+        (
+            valid_event,
+            lambda_context,
+            None,
+        ),
+    ],
+)
+def test_handler_cant_read_pdf_from_s3(
+    event, context, expected_response, s3_client_stub, pdf_stream
+):
+
+    s3_client_stub.add_response(
+        "get_object",
+        {},
+        {
+            "Bucket": "bug-h20-data",
+            "Key": "pages/blah.pdf",
+        },
+    )
+
+    result = handler.lambda_handler(event, context)
+    assert result == expected_response
+
+
+@pytest.mark.parametrize(
+    "event,context,expected_response",
+    [
+        (
+            valid_event,
+            lambda_context,
+            None,
+        ),
+    ],
+)
+def test_handler_cant_read_pdf(
+    event, context, expected_response, s3_client_stub
+):
+
+    s3_client_stub.add_response(
+        "get_object",
+        {
+            "Body": StreamingBody(io.BytesIO(),0),
+        },
+        {
+            "Bucket": "bug-h20-data",
+            "Key": "pages/blah.pdf",
+        },
+    )
+
+    result = handler.lambda_handler(event, context)
+    assert result == expected_response
