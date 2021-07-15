@@ -13,8 +13,7 @@ resource "aws_lambda_function" "tika_lambda" {
   environment {
     variables = {
       S3_BUCKET      = aws_s3_bucket.bug_h20_data.id
-      PDF_PREFIX     = "pages"
-      EXTRACT_PREFIX = "metadata"
+      EXTRACT_PREFIX = "metadata/"
       S3_REGION     = var.aws_region
     }
   }

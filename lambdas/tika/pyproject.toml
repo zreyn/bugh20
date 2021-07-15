@@ -10,6 +10,7 @@ botocore = "^1.19.18"
 boto3 = "^1.16.18"
 aws-lambda-powertools = "^1.9.0"
 aws-lambda-context = "^1.1.0"
+pdfplumber = "^0.5.28"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
