@@ -54,6 +54,7 @@ pip-wheel-metadata
 
 # terraform out file
 **/terraform/*.out
+**/terraform/.terraform.lock.hcl
 
 # build files
 .dist/

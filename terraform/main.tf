@@ -5,7 +5,7 @@ variable "aws_region" {
 variable "azs" {
   description = "list of aws availabilty zones in aws region"
   default     = ["us-east-2a", "us-east-2b", "us-east-2c"]
-  type        = list
+  type        = list(any)
 }
 
 data "aws_caller_identity" "current" {}

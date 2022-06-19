@@ -14,7 +14,7 @@ resource "aws_lambda_function" "tika_lambda" {
     variables = {
       S3_BUCKET      = aws_s3_bucket.bug_h20_data.id
       EXTRACT_PREFIX = "metadata/"
-      S3_REGION     = var.aws_region
+      S3_REGION      = var.aws_region
     }
   }
 }
